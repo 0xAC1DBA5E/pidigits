@@ -8,7 +8,7 @@ performance seems reasonable - 10^7th digit calculated in 3.6s on my i7-6770HQ C
 
 make clean build test bench
 
-$  time pidigits 10000000
+$  time pidigits 10000000\
 pi16(10000000): 7af5863e
 
 ## Paper
