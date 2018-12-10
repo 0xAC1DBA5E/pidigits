@@ -1,10 +1,8 @@
 #include <cmath>
 #include <iostream>
 
-using INT = int64_t;
-using FLOAT = double;
-
 // 16^n mod c, O(log(n))
+template <typename INT = int64_t, typename FLOAT = double>
 FLOAT expmod16(FLOAT n, FLOAT c) {
   FLOAT r = 1.0;
   // set t to largest power of 2 <= n
@@ -24,7 +22,8 @@ FLOAT expmod16(FLOAT n, FLOAT c) {
   return r;
 }
 
-INT pi16(INT n) {
+template <typename INT = int64_t, typename FLOAT = double>
+unsigned pi16(INT n) {
   FLOAT s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0, _n = n;
 // part 1
 #pragma omp parallel for
@@ -32,13 +31,13 @@ INT pi16(INT n) {
     FLOAT p = 8.0 * k, e = _n - (FLOAT)k;
     FLOAT p1 = p + 1, p2 = p + 4, p3 = p + 5, p4 = p + 6;
 #pragma omp atomic
-    s1 += expmod16(e, p1) / p1;
+    s1 += expmod16<INT, FLOAT>(e, p1) / p1;
 #pragma omp atomic
-    s2 += expmod16(e, p2) / p2;
+    s2 += expmod16<INT, FLOAT>(e, p2) / p2;
 #pragma omp atomic
-    s3 += expmod16(e, p3) / p3;
+    s3 += expmod16<INT, FLOAT>(e, p3) / p3;
 #pragma omp atomic
-    s4 += expmod16(e, p4) / p4;
+    s4 += expmod16<INT, FLOAT>(e, p4) / p4;
 #pragma omp atomic
     s1 -= (INT)s1;
 #pragma omp atomic
